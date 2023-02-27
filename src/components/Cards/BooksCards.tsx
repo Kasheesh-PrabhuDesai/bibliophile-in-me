@@ -10,14 +10,14 @@ import {
   ListItem,
   CircularProgress,
 } from "@material-ui/core";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../store";
 import { useReduxSelector } from "../../store/selectors";
 import {
   getActivePage,
   getActiveQuery,
-  getActiveRange,
   getBooksRange,
   getLoadingState,
   getTotalBooks,
@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme =>
     paginationContainer: {
       [theme.breakpoints.down("xs")]: {
         width: "95vw",
+        margin: 0,
       },
       width: "80vw",
       justifyContent: "space-between",
@@ -54,7 +55,7 @@ const useStyles = makeStyles(theme =>
     },
     text: {
       [theme.breakpoints.down("md")]: {
-        fontSize: "1rem",
+        fontSize: "0.8rem",
       },
     },
   })
@@ -62,7 +63,7 @@ const useStyles = makeStyles(theme =>
 
 export default function BooksCards() {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const books = useReduxSelector(getBooksRange);
   const activeQuery = useReduxSelector(getActiveQuery);
@@ -70,7 +71,7 @@ export default function BooksCards() {
   const total = useReduxSelector(getTotalBooks);
   const status = useReduxSelector(getLoadingState);
   const handleLoadNextPage = () => {
-    dispatch<any>(
+    dispatch(
       $fetchBooksBySearchQuery({ query: activeQuery, page: activePage + 1 })
     );
   };
@@ -87,7 +88,7 @@ export default function BooksCards() {
     authorName: Array<string>,
     coverImage: string
   ) => {
-    dispatch<any>($fetchSelectedBookDetails({ key, authorName, coverImage }));
+    dispatch($fetchSelectedBookDetails({ key, authorName, coverImage }));
     navigate("/book-details");
   };
 

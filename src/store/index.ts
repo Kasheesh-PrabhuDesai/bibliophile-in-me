@@ -1,22 +1,28 @@
 import bookSearchResultReducer from "./slices/book-search-result.slice";
-import {
-  AsyncThunk,
-  AsyncThunkOptions,
-  AsyncThunkPayloadCreator,
-  configureStore,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { initialReduxState } from "./models";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  reconciler: autoMergeLevel2,
+};
+
+const rootReducer = combineReducers({
+  bookSearchResult: bookSearchResultReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 let store: ReturnType<typeof createStore>;
 
 const createStore = (preloadedState: any) => {
   return configureStore({
     preloadedState: preloadedState ?? initialReduxState,
-    reducer: {
-      bookSearchResult: bookSearchResultReducer,
-    },
+    reducer: persistedReducer,
   });
 };
 
@@ -29,32 +35,13 @@ export const initStore = (preloadedState?: any) => {
     });
   }
 
-  // create a new store for SSG and SSR
-  if (typeof window === "undefined") return _store;
   // Create the store once in the client
   if (!store) store = _store;
 
   return _store;
 };
+export const persistor = persistStore(initStore());
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-
-type AsyncThunkConfig = {
-  state: RootState;
-  dispatch: AppDispatch;
-};
-// Using this we get correctly typed thunks
-export const createAppAsyncThunk = <Returned extends any, ThunkArg = void>(
-  typePrefix: string,
-  payloadCreator: AsyncThunkPayloadCreator<
-    Returned,
-    ThunkArg,
-    AsyncThunkConfig
-  >,
-  options?: AsyncThunkOptions<ThunkArg, AsyncThunkConfig>
-): AsyncThunk<Returned, ThunkArg, AsyncThunkConfig> =>
-  createAsyncThunk<Returned, ThunkArg>(typePrefix, payloadCreator, options);

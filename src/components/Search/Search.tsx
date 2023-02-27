@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../store";
 import { $fetchBooksBySearchQuery } from "../../store/thunks/book-search-result.thunk";
 
 const useStyles = makeStyles(theme =>
@@ -31,11 +32,11 @@ const useStyles = makeStyles(theme =>
 export default function Search() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [text, setText] = useState<string>("");
   const handleSearch = async () => {
     if (text !== "") {
-      dispatch<any>($fetchBooksBySearchQuery({ page: 1, query: text }));
+      dispatch($fetchBooksBySearchQuery({ page: 1, query: text }));
       navigate("/book-search-results");
     }
   };
