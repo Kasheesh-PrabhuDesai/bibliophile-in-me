@@ -13,10 +13,30 @@ export default function Navigation() {
   const classes = useStyles();
   const navigate = useNavigate();
   return (
-    <Grid container justifyContent="center" className={classes.container}>
-      <Button variant="contained" color="primary" onClick={() => navigate("/")}>
-        Search Again
-      </Button>
+    <Grid
+      container
+      justifyContent="flex-start"
+      className={classes.container}
+      spacing={2}
+    >
+      <Grid item>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate(-1)}
+        >
+          Go back
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/")}
+        >
+          Search Again
+        </Button>
+      </Grid>
     </Grid>
   );
 }
