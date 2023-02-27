@@ -82,10 +82,15 @@ export default function BooksCards() {
       })
     );
   };
-  const handleCheckOutBook = (key: string, authorName: Array<string>) => {
-    dispatch<any>($fetchSelectedBookDetails({ key, authorName }));
+  const handleCheckOutBook = (
+    key: string,
+    authorName: Array<string>,
+    coverImage: string
+  ) => {
+    dispatch<any>($fetchSelectedBookDetails({ key, authorName, coverImage }));
     navigate("/book-details");
   };
+
   useEffect(() => {
     setTimeout(() => {
       if (books.length > 0) {
@@ -99,9 +104,7 @@ export default function BooksCards() {
 
   useEffect(() => {
     if (isError) {
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
+      setTimeout(() => navigate("/"), 1000);
     }
   }, [isError, navigate]);
 
@@ -121,7 +124,7 @@ export default function BooksCards() {
     return (
       <Layout>
         <Grid container justifyContent="center" alignItems="center">
-          <Typography variant="h3">
+          <Typography variant="h4">
             {`No books could be found matching ${activeQuery}. Try searching again!`}
           </Typography>
         </Grid>
@@ -133,7 +136,7 @@ export default function BooksCards() {
     <Fragment>
       <Navigation />
       {books.map(book => (
-        <Card className={classes.card}>
+        <Card className={classes.card} key={book.key}>
           <CardContent>
             <Grid container>
               <Grid item xs={4}>
@@ -169,7 +172,11 @@ export default function BooksCards() {
                       color="primary"
                       variant="contained"
                       onClick={() =>
-                        handleCheckOutBook(book.key, book.author_name)
+                        handleCheckOutBook(
+                          book.key,
+                          book.author_name,
+                          book.cover_i
+                        )
                       }
                     >
                       Check out

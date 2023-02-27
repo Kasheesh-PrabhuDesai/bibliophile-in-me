@@ -6,7 +6,7 @@ interface bookSearchAPI {
 }
 
 const bookSearchBaseAPI = "https://openlibrary.org/search.json?q=";
-const searchFields = "key,cover_i,title,subtitle,author_name,name,description";
+const searchFields = "key,cover_i,title,subtitle,author_name,name";
 
 export const bookSearch = async ({ page, query }: bookSearchAPI) => {
   try {

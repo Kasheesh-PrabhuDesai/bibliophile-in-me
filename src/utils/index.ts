@@ -19,6 +19,7 @@ export type BookDetails = {
   type: { key: string };
   description: { type: string; value: string };
   covers: Array<number>;
+  cover_i: string;
   subject_places: Array<string>;
   subjects: Array<string>;
   subject_people: Array<string>;

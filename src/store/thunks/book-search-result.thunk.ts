@@ -30,10 +30,8 @@ export const $fetchBooksBySearchQuery = createAsyncThunk(
       thunkAPI.dispatch(setTotal(total));
       thunkAPI.dispatch(setActivePage(page));
       thunkAPI.dispatch(setActiveQuery(query));
-      return { success: true };
     } catch (err) {
       thunkAPI.dispatch(setType("error"));
-      return { success: false };
     }
   }
 );
@@ -41,16 +39,21 @@ export const $fetchBooksBySearchQuery = createAsyncThunk(
 interface SelectedBookDetails {
   key: string;
   authorName: Array<string>;
+  coverImage: string;
 }
 
 export const $fetchSelectedBookDetails = createAsyncThunk(
   "book-search-result/$fetchSelectedBookDetails",
-  async ({ key, authorName }: SelectedBookDetails, thunkAPI) => {
+  async ({ key, authorName, coverImage }: SelectedBookDetails, thunkAPI) => {
     try {
       const response = await fetchBookDetails(key);
       const { bookDetails } = response;
       thunkAPI.dispatch(
-        setSelectedBook({ ...bookDetails, author_name: authorName })
+        setSelectedBook({
+          ...bookDetails,
+          author_name: authorName,
+          cover_i: coverImage,
+        })
       );
     } catch (err) {
       thunkAPI.dispatch(setType("error"));

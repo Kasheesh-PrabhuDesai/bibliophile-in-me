@@ -62,11 +62,11 @@ export default function BookDetails() {
       <Navigation />
       <Grid container justifyContent="center">
         <img
-          src={`https://covers.openlibrary.org/b/id/${selectedBook.covers?.[0]}.jpg`}
+          src={`https://covers.openlibrary.org/b/id/${selectedBook.cover_i}.jpg`}
           alt={selectedBook.title}
           className={classes.coverImage}
           style={{
-            background: selectedBook.covers ? "#FFF" : "#DEDEDE",
+            background: selectedBook.cover_i ? "#FFF" : "#DEDEDE",
           }}
         />
       </Grid>

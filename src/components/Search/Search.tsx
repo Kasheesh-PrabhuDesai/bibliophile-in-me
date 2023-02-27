@@ -49,12 +49,14 @@ export default function Search() {
         placeholder="Enter a book name"
         className={classes.searchBox}
         required
+        fullWidth
       />
       <Button
         variant="contained"
         color="primary"
         onClick={handleSearch}
         className={classes.searchButton}
+        type="submit"
       >
         Search 🔍
       </Button>
