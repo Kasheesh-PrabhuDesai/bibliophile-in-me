@@ -9,7 +9,10 @@ import {
 } from "@material-ui/core";
 import { Fragment, useEffect, useState } from "react";
 import { useReduxSelector } from "../../store/selectors";
-import { getSelectedBook } from "../../store/selectors/book-search-result.selectors";
+import {
+  getLoadingState,
+  getSelectedBook,
+} from "../../store/selectors/book-search-result.selectors";
 import Layout from "../Layout";
 import Navigation from "../Navigation";
 
@@ -34,18 +37,10 @@ const useStyles = makeStyles(theme =>
 
 export default function BookDetails() {
   const classes = useStyles();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const selectedBook = useReduxSelector(getSelectedBook);
+  const status = useReduxSelector(getLoadingState);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (Object.keys(selectedBook).length > 0) {
-        setIsLoading(false);
-      }
-    }, 500);
-  }, [selectedBook]);
-
-  if (isLoading) {
+  if (status === "loading") {
     return (
       <Layout>
         <Grid container justifyContent="center" alignItems="center">

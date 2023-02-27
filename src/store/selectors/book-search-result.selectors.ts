@@ -40,3 +40,8 @@ export const getSelectedBook = createSelector(
   getBookSearchResultObj,
   re => re.selectedBook
 );
+
+export const getLoadingState = createSelector(
+  getBookSearchResultObj,
+  re => re.type
+);

@@ -19,6 +19,7 @@ import {
   getActiveQuery,
   getActiveRange,
   getBooksRange,
+  getLoadingState,
   getTotalBooks,
 } from "../../store/selectors/book-search-result.selectors";
 import {
@@ -63,12 +64,11 @@ export default function BooksCards() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isError, setIsError] = useState<boolean>(false);
   const books = useReduxSelector(getBooksRange);
   const activeQuery = useReduxSelector(getActiveQuery);
   const activePage = useReduxSelector(getActivePage);
   const total = useReduxSelector(getTotalBooks);
+  const status = useReduxSelector(getLoadingState);
   const handleLoadNextPage = () => {
     dispatch<any>(
       $fetchBooksBySearchQuery({ query: activeQuery, page: activePage + 1 })
@@ -91,24 +91,7 @@ export default function BooksCards() {
     navigate("/book-details");
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (books.length > 0) {
-        setIsLoading(false);
-      } else {
-        setIsError(true);
-        setIsLoading(false);
-      }
-    }, 1500);
-  }, [books]);
-
-  useEffect(() => {
-    if (isError) {
-      setTimeout(() => navigate("/"), 1000);
-    }
-  }, [isError, navigate]);
-
-  if (isLoading) {
+  if (status === "loading") {
     return (
       <Layout>
         <Grid container justifyContent="center" alignItems="center">
@@ -120,7 +103,7 @@ export default function BooksCards() {
     );
   }
 
-  if (isError) {
+  if (status === "error") {
     return (
       <Layout>
         <Grid container justifyContent="center" alignItems="center">
