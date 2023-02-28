@@ -149,7 +149,7 @@ export default function BooksCards() {
                   </ListItem>
                   <ListItem>
                     <Typography variant="h6" className={classes.text}>
-                      by {book.author_name}
+                      by {book.author_name ?? "Unknown"}
                     </Typography>
                   </ListItem>
                   <ListItem>
