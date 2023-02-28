@@ -7,7 +7,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { useReduxSelector } from "../../store/selectors";
 import {
   getLoadingState,
@@ -68,18 +68,18 @@ export default function BookDetails() {
       <Grid container justifyContent="center">
         <List>
           <ListItem className={classes.listItem}>
-            <Typography variant={"h3"}>{selectedBook.title}</Typography>
+            <Typography variant={"h3"}>{selectedBook?.title}</Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
             <Typography variant={"h4"}>
-              by {selectedBook.author_name[0]}
+              by {selectedBook?.author_name?.[0]}
             </Typography>
           </ListItem>
           {selectedBook.description ? (
             <ListItem className={classes.listItem}>
               <Typography variant={"h6"}>
                 <strong>Plot : </strong>{" "}
-                {selectedBook.description.value ?? selectedBook.description}
+                {selectedBook?.description?.value ?? selectedBook?.description}
               </Typography>
             </ListItem>
           ) : (
@@ -87,15 +87,21 @@ export default function BookDetails() {
               <ListItem className={classes.listItem}>
                 <Typography variant={"h6"}>
                   First published on :{" "}
-                  {new Date(selectedBook.created.value).toLocaleDateString()}
+                  {selectedBook?.created
+                    ? new Date(
+                        selectedBook?.created?.value
+                      ).toLocaleDateString()
+                    : "Not available"}
                 </Typography>
               </ListItem>
               <ListItem className={classes.listItem}>
                 <Typography variant={"h6"}>
                   Last modified on :{" "}
-                  {new Date(
-                    selectedBook.last_modified.value
-                  ).toLocaleDateString()}
+                  {selectedBook?.last_modified
+                    ? new Date(
+                        selectedBook?.last_modified?.value
+                      ).toLocaleDateString()
+                    : "Not available"}
                 </Typography>
               </ListItem>
             </>

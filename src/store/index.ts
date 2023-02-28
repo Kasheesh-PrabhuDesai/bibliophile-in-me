@@ -1,9 +1,18 @@
 import bookSearchResultReducer from "./slices/book-search-result.slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { initialReduxState } from "./models";
-import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const persistConfig = {
   key: "root",
@@ -23,6 +32,12 @@ const createStore = (preloadedState: any) => {
   return configureStore({
     preloadedState: preloadedState ?? initialReduxState,
     reducer: persistedReducer,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
   });
 };
 
