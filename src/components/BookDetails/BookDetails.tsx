@@ -87,7 +87,7 @@ export default function BookDetails() {
           </ListItem>
           <ListItem className={classes.listItem}>
             <Typography variant={"h4"} role={"author-name"}>
-              by {selectedBook?.author_name?.[0]}
+              by {selectedBook?.author_name?.[0] ?? "Unknown"}
             </Typography>
           </ListItem>
           {selectedBook.description ? (

@@ -185,7 +185,7 @@ export default function BooksCards() {
           Prev Page
         </Button>
         <Typography variant="h6" className={classes.text}>
-          Page {activePage} / {Math.floor(total / 20)}
+          Page {activePage} / {Math.round(total / 20)}
         </Typography>
         <Button
           variant="contained"
