@@ -15,6 +15,7 @@ export const bookSearch = async ({ page, query }: bookSearchAPI) => {
     );
     if (response.status !== 200) throw Error("Internal Server Error");
     const books = await response.json();
+    if (books.numFound === 0) throw Error("No books could be found"); // display error if no books found
     return {
       books: books.docs as Book[],
       total: books.numFound,
