@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# IDEA BEHIND APP
+Using the open library api the user is provided a search box to search for books or any other media only by using a suitable book title search query. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FRAMEWORKS AND LANGUAGE USED
+React.js + Typescript + Material UI + Redux toolkit
 
-## Available Scripts
 
-In the project directory, you can run:
+# STRUCTURE OF THE CODEBASE
+The app follows a modular structure which is as follows
 
-### `yarn start`
+1. /src/components - holds all the reusable components containing the business logic of fetching books and displaying the results
+2. /src/pages -  holds the representational UI for the home page, search results page and the book details page
+3. /src/tests - holds three jest tests each one testing one page of the app
+4. /src/utils - holds the util files such as the type definitions and enums
+5. /src/services - holds the api requests for fetching book details and fetching books by search query
+6. /src/store - holds the redux store along with the dispatch action as thunks, store selectors and store reducers
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# IMPORTANT DECISIONS TAKEN 
+1. Redux toolkit is used which is a much better and easier implementation over the basic redux package. Async thunk is used to dispatch store actions. The store is designed to hold the loading and error state messages along with othe book search results which is then used on the frontend to display the loading or error state message.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. Redux persist gate is used to persist the redux store values on page reload to improve user experience
 
-### `yarn test`
+3. The inbuilt fetch library is used to avoid use of third party package
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+# WEB APP
+The code has been deployed on vercel and can be accessed following this link https://bibliophile-in-me.vercel.app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# HOW TO RUN THIS APP
+1) git clone git@github.com:Kasheesh-PrabhuDesai/bibliophile-in-me.git
+2) cd bibliophile-in-me
+3) yarn 
+4) yarn start or yarn test
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
