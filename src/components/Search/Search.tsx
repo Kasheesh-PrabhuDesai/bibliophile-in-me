@@ -51,6 +51,7 @@ export default function Search() {
         className={classes.searchBox}
         required
         fullWidth
+        role={"searchbox"}
       />
       <Button
         variant="contained"
@@ -58,6 +59,7 @@ export default function Search() {
         onClick={handleSearch}
         className={classes.searchButton}
         type="submit"
+        role={"button"}
       >
         Search 🔍
       </Button>

@@ -78,7 +78,7 @@ export default function BooksCards() {
     );
   };
   const handleLoadPrevPage = () => {
-    dispatch<any>(
+    dispatch(
       $fetchBooksBySearchQuery({
         query: activeQuery,
         page: activePage > 1 ? activePage - 1 : 1,
@@ -121,7 +121,7 @@ export default function BooksCards() {
     <Fragment>
       <Navigation />
       {books.map(book => (
-        <Card className={classes.card} key={book.key}>
+        <Card className={classes.card} key={book.key} role={"book-result"}>
           <CardContent>
             <Grid container>
               <Grid item xs={4}>
@@ -163,6 +163,7 @@ export default function BooksCards() {
                           book.cover_i
                         )
                       }
+                      role={"button"}
                     >
                       Check out
                     </Button>

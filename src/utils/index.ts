@@ -17,7 +17,7 @@ export type BookDetails = {
   author_name: Array<string>;
   authors: [{ author: { key: string }; type: { key: string } }];
   type: { key: string };
-  description: { type: string; value: string };
+  description: string | { type: string; value: string };
   covers: Array<number>;
   cover_i: string;
   subject_places: Array<string>;

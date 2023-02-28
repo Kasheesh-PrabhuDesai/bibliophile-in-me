@@ -81,18 +81,21 @@ export default function BookDetails() {
       <Grid container justifyContent="center">
         <List>
           <ListItem className={classes.listItem}>
-            <Typography variant={"h3"}>{selectedBook?.title}</Typography>
+            <Typography variant={"h3"} role={"title"}>
+              {selectedBook?.title}
+            </Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <Typography variant={"h4"}>
+            <Typography variant={"h4"} role={"author-name"}>
               by {selectedBook?.author_name?.[0]}
             </Typography>
           </ListItem>
           {selectedBook.description ? (
             <ListItem className={classes.listItem}>
               <Typography variant={"h6"}>
-                <strong>Plot : </strong>{" "}
-                {selectedBook?.description?.value ?? selectedBook?.description}
+                <strong>Plot :</strong>{" "}
+                {selectedBook?.description?.["value"] ??
+                  selectedBook?.description}
               </Typography>
             </ListItem>
           ) : (
