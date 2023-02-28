@@ -24,7 +24,6 @@ export const $fetchBooksBySearchQuery = createAsyncThunk(
       const { total, books } = response;
       thunkAPI.dispatch(
         setBooksByRange({
-          range: [0, 20],
           booksByRange: books,
         })
       );

@@ -1,6 +1,6 @@
 import { BookDetails } from "./../../utils/index";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Book, Range } from "../../utils";
+import { Book } from "../../utils";
 import { initialReduxState } from "../models";
 
 export const bookSearchResultSlice = createSlice({
@@ -23,28 +23,10 @@ export const bookSearchResultSlice = createSlice({
     setBooksByRange: (
       state,
       action: PayloadAction<{
-        range: Range;
         booksByRange: Book[];
       }>
     ) => {
-      // we need to sort in this users according to the range
-      const [from, to] = action.payload.range;
-      // make sure state.users is at least **to** long
-      if (state.booksByRange.length < to) {
-        state.booksByRange = state.booksByRange.concat(
-          Array(to - state.booksByRange.length).fill(undefined)
-        );
-      }
-      // and then splice the new values into it
-      // @ts-ignore
-      state.booksByRange.splice(
-        from,
-        to - from,
-        ...action.payload.booksByRange
-      );
-      // and set the active range
-      state.activeRange = action.payload.range;
-      state.type = "loaded";
+      state.booksByRange = [...action.payload.booksByRange];
     },
     setActivePage: (
       state,

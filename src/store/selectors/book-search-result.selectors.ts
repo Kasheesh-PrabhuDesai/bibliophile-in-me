@@ -2,18 +2,10 @@ import { createSelector } from "@reduxjs/toolkit";
 import ReduxState from "../models";
 
 const getBookSearchResultObj = (state: ReduxState) => state.bookSearchResult;
-export const getAllBooks = createSelector(
-  getBookSearchResultObj,
-  re => re.books
-);
+
 export const getBooksRange = createSelector(
   getBookSearchResultObj,
   re => re.booksByRange
-);
-
-export const getActiveRange = createSelector(
-  getBookSearchResultObj,
-  re => re.activeRange
 );
 
 export const getLoadingType = createSelector(
