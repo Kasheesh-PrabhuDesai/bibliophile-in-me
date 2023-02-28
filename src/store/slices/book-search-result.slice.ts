@@ -61,6 +61,14 @@ export const bookSearchResultSlice = createSlice({
     setSelectedBook: (state, action: PayloadAction<BookDetails>) => {
       state.selectedBook = action.payload;
     },
+    setErrorMsg: (
+      state,
+      action: PayloadAction<
+        typeof initialReduxState.bookSearchResult["errorMsg"]
+      >
+    ) => {
+      state.errorMsg = action.payload;
+    },
   },
 });
 
@@ -72,5 +80,6 @@ export const {
   setActivePage,
   setActiveQuery,
   setSelectedBook,
+  setErrorMsg,
 } = bookSearchResultSlice.actions;
 export default bookSearchResultSlice.reducer;

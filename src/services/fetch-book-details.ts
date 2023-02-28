@@ -9,14 +9,9 @@ export const fetchBookDetails = async (key: string) => {
     const bookDetails = await response.json();
     return {
       bookDetails: bookDetails as BookDetails,
-      success: true,
       errorMsg: null,
     };
   } catch (err) {
-    return {
-      errorMsg: err as string,
-      success: false,
-      bookDetails: {} as BookDetails,
-    };
+    throw err;
   }
 };

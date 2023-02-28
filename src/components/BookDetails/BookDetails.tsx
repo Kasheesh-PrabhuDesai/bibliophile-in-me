@@ -10,6 +10,7 @@ import {
 import { Fragment } from "react";
 import { useReduxSelector } from "../../store/selectors";
 import {
+  getErrorMsg,
   getLoadingState,
   getSelectedBook,
 } from "../../store/selectors/book-search-result.selectors";
@@ -39,6 +40,7 @@ export default function BookDetails() {
   const classes = useStyles();
   const selectedBook = useReduxSelector(getSelectedBook);
   const status = useReduxSelector(getLoadingState);
+  const errorMsg = useReduxSelector(getErrorMsg);
 
   if (status === "loading") {
     return (
@@ -47,6 +49,17 @@ export default function BookDetails() {
           <Typography variant="h4">
             Loading....Please Wait <CircularProgress />
           </Typography>
+        </Grid>
+      </Layout>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <Layout>
+        <Navigation />
+        <Grid container justifyContent="center">
+          <Typography variant="h4">{errorMsg}</Typography>
         </Grid>
       </Layout>
     );

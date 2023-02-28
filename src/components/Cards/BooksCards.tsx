@@ -19,6 +19,7 @@ import {
   getActivePage,
   getActiveQuery,
   getBooksRange,
+  getErrorMsg,
   getLoadingState,
   getTotalBooks,
 } from "../../store/selectors/book-search-result.selectors";
@@ -70,6 +71,7 @@ export default function BooksCards() {
   const activePage = useReduxSelector(getActivePage);
   const total = useReduxSelector(getTotalBooks);
   const status = useReduxSelector(getLoadingState);
+  const errorMsg = useReduxSelector(getErrorMsg);
   const handleLoadNextPage = () => {
     dispatch(
       $fetchBooksBySearchQuery({ query: activeQuery, page: activePage + 1 })
@@ -107,10 +109,9 @@ export default function BooksCards() {
   if (status === "error") {
     return (
       <Layout>
-        <Grid container justifyContent="center" alignItems="center">
-          <Typography variant="h4">
-            {`No books could be found matching ${activeQuery}. Try searching again!`}
-          </Typography>
+        <Navigation />
+        <Grid container justifyContent="center">
+          <Typography variant="h4">{errorMsg}</Typography>
         </Grid>
       </Layout>
     );

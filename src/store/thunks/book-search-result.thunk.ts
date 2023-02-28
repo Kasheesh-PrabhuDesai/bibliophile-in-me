@@ -7,6 +7,7 @@ import {
   setActivePage,
   setActiveQuery,
   setSelectedBook,
+  setErrorMsg,
 } from "../slices/book-search-result.slice";
 
 interface FetchBooks {
@@ -33,6 +34,9 @@ export const $fetchBooksBySearchQuery = createAsyncThunk(
       thunkAPI.dispatch(setType("loaded"));
     } catch (err) {
       thunkAPI.dispatch(setType("error"));
+      thunkAPI.dispatch(
+        setErrorMsg(`No books could be found matching ${query}. Try again!`)
+      );
     }
   }
 );
@@ -60,6 +64,9 @@ export const $fetchSelectedBookDetails = createAsyncThunk(
       thunkAPI.dispatch(setType("loaded"));
     } catch (err) {
       thunkAPI.dispatch(setType("error"));
+      thunkAPI.dispatch(
+        setErrorMsg("Something went wrong. Try reloading the page!")
+      );
     }
   }
 );

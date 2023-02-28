@@ -45,3 +45,8 @@ export const getLoadingState = createSelector(
   getBookSearchResultObj,
   re => re.type
 );
+
+export const getErrorMsg = createSelector(
+  getBookSearchResultObj,
+  re => re.errorMsg
+);

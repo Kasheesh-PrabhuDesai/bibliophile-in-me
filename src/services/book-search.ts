@@ -13,7 +13,7 @@ export const bookSearch = async ({ page, query }: bookSearchAPI) => {
     const response = await fetch(
       `${bookSearchBaseAPI}${query}&fields=${searchFields}&mode=everything&limit=20&page=${page}`
     );
-    if (response.status !== 200) throw Error("Internal server error");
+    if (response.status !== 200) throw Error("Internal Server Error");
     const books = await response.json();
     return {
       books: books.docs as Book[],
@@ -22,11 +22,6 @@ export const bookSearch = async ({ page, query }: bookSearchAPI) => {
       errorMsg: null,
     };
   } catch (err) {
-    return {
-      errorMsg: err as string,
-      total: -1,
-      success: false,
-      books: [] as Book[],
-    };
+    throw err;
   }
 };
